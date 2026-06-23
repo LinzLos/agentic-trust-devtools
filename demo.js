@@ -25,6 +25,16 @@
     store.set("rung", rung);
   }
   $$(".rung-dot").forEach(d => d.addEventListener("click", () => setRung(parseInt(d.dataset.rungGoto, 10))));
+  // mobile: swipe the carousel left/right, same as the ← / → keys (advance() steps rungs, then beats)
+  if (ladder) {
+    let sx = 0, sy = 0, swiping = false;
+    ladder.addEventListener("touchstart", e => { if (e.touches.length === 1) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; swiping = true; } }, { passive: true });
+    ladder.addEventListener("touchend", e => {
+      if (!swiping) return; swiping = false;
+      const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) advance(dx < 0 ? 1 : -1);
+    }, { passive: true });
+  }
 
   /* ---- The fix: the declaration is LIVE (it drives the ranking) ---- */
   const declsurface = $(".declsurface");

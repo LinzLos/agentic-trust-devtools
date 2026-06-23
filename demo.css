@@ -38,12 +38,13 @@ body { background: var(--surface-page); color: var(--text-primary); overflow: hi
 
 
 /* ════════════════════════ Held-offer surface (offers.html) ════════════════════════ */
+/* block-level scroll container (NOT flex) so it reliably scrolls when content overflows */
 .offers-canvas {
   flex: 1;
   width: 100%; max-width: 1020px; margin: 0 auto;
   padding: var(--space-40) var(--space-24) var(--space-32);
-  display: flex; flex-direction: column; gap: var(--space-20);
 }
+.offers-canvas > * + * { margin-top: var(--space-20); }
 
 .offers-head { display: flex; flex-direction: column; gap: var(--space-6); }
 .eyebrow { font-size: var(--text-md); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--brand); font-weight: var(--weight-semibold); }
@@ -98,10 +99,22 @@ body { background: var(--surface-page); color: var(--text-primary); overflow: hi
 
 @media (max-width: 720px) {
   .alleg-stats { grid-template-columns: 1fr; }
+  /* the 6-column audit becomes one labeled card per offer */
   .audit thead { display: none; }
   .audit, .audit tbody, .audit tr, .audit td { display: block; width: 100%; }
-  .audit tr { padding: var(--space-8) 0; border-bottom: 1px solid var(--border); }
-  .audit td { padding: var(--space-4) var(--space-12); }
+  .audit tr { padding: var(--space-12); margin-bottom: var(--space-12); border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); }
+  .audit td { padding: var(--space-4) 0; }
+  .audit .td-primary { font-size: var(--text-lg); padding-bottom: var(--space-8); border-bottom: 1px solid var(--border-light); }
+  .audit td:nth-of-type(n+2)::before {
+    display: block; margin-bottom: var(--space-2);
+    color: var(--text-tertiary); font-size: var(--text-sm); font-weight: var(--weight-semibold);
+    text-transform: uppercase; letter-spacing: var(--tracking-caps);
+  }
+  .audit td:nth-of-type(2)::before { content: "Served"; }
+  .audit td:nth-of-type(3)::before { content: "Deal"; }
+  .audit td:nth-of-type(4)::before { content: "Why held"; }
+  .audit td:nth-of-type(5)::before { content: "When"; }
+  .audit td:nth-of-type(6)::before { content: "Your move"; }
 }
 
 /* ════════════════════════ Origin ladder (origin.html) ════════════════════════ */
@@ -178,7 +191,14 @@ body { background: var(--surface-page); color: var(--text-primary); overflow: hi
   flex-shrink: 0;
 }
 .deck-brand { display: inline-flex; align-items: center; gap: var(--space-6); font-weight: var(--weight-semibold); font-size: var(--text-md); }
-.deck-brand .dbm { color: var(--brand); font-size: var(--text-lg); }
+/* inverted badge (Tiny Wire): badge bg = text-primary, icon = surface, so it flips with the theme */
+.brand-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: var(--radius-sm); background: var(--text-primary); color: var(--surface); flex: none; }
+.brand-badge svg { width: 14px; height: 14px; }
+.brand-name { line-height: 1; }
+.brand-gh { display: inline-flex; align-items: center; gap: 1px; margin-left: var(--space-2); color: var(--text-tertiary); }
+.brand-gh svg { width: 16px; height: 16px; }
+.brand-gh-arrow { font-size: var(--text-sm); }
+.brand-gh:hover { color: var(--brand); }
 
 .deck-progress { display: flex; gap: var(--space-4); margin: 0 auto; }
 .deck-dot {
@@ -241,11 +261,19 @@ body.notes-on .dnote { display: block; }
 .close-built strong { color: var(--brand); }
 .close-built a { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; }
 .close-built a:hover { text-decoration-thickness: 2px; }
+/* QR to the live demo — the code SVG carries its own white quiet-zone, so it scans on any theme */
+.close-qr { display: inline-flex; align-items: center; gap: var(--space-14); margin-top: var(--space-20); padding: var(--space-12) var(--space-16); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); text-decoration: none; width: fit-content; }
+.close-qr-img { display: block; width: 120px; height: 120px; border: 1px solid var(--border-light); border-radius: var(--radius-xs); }
+.close-qr-label { font-size: var(--text-md); line-height: var(--leading-normal); font-weight: var(--weight-semibold); color: var(--text-primary); }
+.close-qr-url { display: block; margin-top: var(--space-2); font-weight: var(--weight-regular); font-size: var(--text-sm); color: var(--text-tertiary); }
 
 @media (max-width: 720px) {
+  .deck-bar { gap: var(--space-8); padding-left: var(--space-12); padding-right: var(--space-12); }
   .deck-progress .dd-l { display: none; }
   .deck-hint { display: none; }
+  #fsToggle { display: none; }            /* fullscreen is desktop-only; free up bar space for the dots */
   .close-line { font-size: var(--text-2xl); }
+  .close-qr { gap: var(--space-12); }
 }
 
 /* ════════════════ Beat 1 — scenario carousel (one rung at a time) ════════════════ */
@@ -435,7 +463,8 @@ body.notes-on .dnote { display: block; }
   border-bottom: 1px solid var(--border); flex-shrink: 0;
 }
 .qv-title { font-weight: var(--weight-semibold); font-size: var(--text-md); color: var(--text-secondary); }
-.queue-view .offers-canvas { flex: 1; min-height: 0; overflow: auto; }
+.queue-view { overflow: hidden; }
+.queue-view .offers-canvas { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
 
 /* the declaration's link to the queue */
 /* My Queue — a destination link, NOT a rule-pill (no border/bg; sits apart) */
