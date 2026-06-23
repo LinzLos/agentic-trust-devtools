@@ -139,6 +139,11 @@
   document.addEventListener("keydown", e => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     if (/^(input|textarea|select)$/i.test(e.target.tagName) || e.target.isContentEditable) return;
+    // queue overlay open: arrows leave it — → continues to the Close, ← returns to the build
+    if (queueView && !queueView.hidden) {
+      if (e.key === "ArrowRight") { queueView.hidden = true; goBeat(curBeat() + 1); e.preventDefault(); return; }
+      if (e.key === "ArrowLeft")  { queueView.hidden = true; e.preventDefault(); return; }
+    }
     if (e.key === "ArrowRight") { advance(1); e.preventDefault(); }
     else if (e.key === "ArrowLeft") { advance(-1); e.preventDefault(); }
     else if (e.key === "r" || e.key === "R") {
