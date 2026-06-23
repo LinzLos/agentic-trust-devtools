@@ -54,4 +54,6 @@ Keyboard during the run:
 
 ---
 
-Lindsay Zuñiga, product designer.
+Concept, design, and build by **Lindsay Zuñiga**, product designer.
+
+© 2026 Lindsay Zuñiga. All rights reserved. This work is proprietary — see [LICENSE](LICENSE). You're welcome to view the live demo and link to it; please don't copy, reuse, or repurpose the code, design, or content without permission.

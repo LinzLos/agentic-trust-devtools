@@ -1,4 +1,5 @@
-/* Agentic Trust · Dev Tools — three-beat demo sequencer (vanilla, no deps).
+/* © 2026 Lindsay Zuñiga. All rights reserved. See LICENSE.
+   Agentic Trust · Dev Tools — three-beat demo sequencer (vanilla, no deps).
    ← / → advance: inside beat 1 they step the scenario carousel (1→2→3),
    then move between beats (Pattern → Demo → Close). R resets to the start. */
 (() => {
