@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agentic Trust · Dev Tools — the skip button is disappearing</title>
+<script>try{var t=localStorage.getItem('atd-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<meta name="description" content="When an agent directs your choices, the ad climbs a layer into its recommendation. A demo of allegiance and declarative UX, built on Tiny Wire." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Sans:ital,opsz,wght@0,9..40,400..600;1,9..40,400..600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="lib/globals.css" />
+<link rel="stylesheet" href="lib/components.css" />
+<link rel="stylesheet" href="demo.css" />
+<script defer src="demo.js"></script>
+</head>
+<body>
+
+<div class="deck" id="deck" data-beat="1">
+
+  <!-- ───────────── Deck bar (global chrome) ───────────── -->
+  <header class="deck-bar">
+    <div class="deck-brand"><span class="dbm">◧</span> agentic trust</div>
+    <nav class="deck-progress" aria-label="Demo beats">
+      <button class="deck-dot" data-goto="1" type="button"><span class="dd-n">1</span><span class="dd-l">Pattern</span></button>
+      <button class="deck-dot" data-goto="2" type="button"><span class="dd-n">2</span><span class="dd-l">Demo</span></button>
+      <button class="deck-dot" data-goto="3" type="button"><span class="dd-n">3</span><span class="dd-l">Close</span></button>
+    </nav>
+    <div class="deck-actions">
+      <span class="deck-hint"><kbd class="kbd">←</kbd><kbd class="kbd">→</kbd> beats</span>
+      <button class="btn btn-ghost btn-sm" id="notesToggle" type="button" aria-pressed="false">Designer's cut</button>
+      <button class="btn btn-ghost btn-sm btn-icon" id="fsToggle" type="button" title="Fullscreen" aria-label="Fullscreen">⛶</button>
+      <button class="btn btn-ghost btn-sm btn-icon" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle theme">☾</button>
+    </div>
+  </header>
+
+  <!-- Persistent thesis billboard — identical across every beat (does NOT flip with F) -->
+  <div class="billboard">
+    <div class="ts ts-thesis">
+      <span class="ts-verdict">Ambush ads break AI agents. Routed ads fund them.</span>
+      <span class="ts-detail">declarative-UX trust layer · Lindsay Zuñiga</span>
+    </div>
+  </div>
+
+  <!-- ════════════════ BEAT 1 — origin ladder ════════════════ -->
+  <section class="beat is-active" data-beat="1">
+    <main class="ladder-canvas" data-rung="1">
+      <ol class="ladder carousel">
+
+        <!-- Per rung, the escalating VERDICT is the hero; evidence + caption recede. -->
+        <li class="rung" data-rung="1">
+          <div class="rung-hero hero-1">You could decline.</div>
+          <div class="rung-ctx">Sandwich checkout · post-order interstitial <span class="rung-tag tag tag-warn">Sponsored</span></div>
+          <figure class="rung-media">
+            <div class="shot">
+              <img src="assets/rung1-checkout2.png" alt="Post-checkout interstitial: a casino ad labeled Sponsored, with a Decline button" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+              <div class="shot-ph">screenshot → <code>assets/rung1-checkout2.png</code><span>(post-checkout “Sponsored” ad + Decline)</span></div>
+            </div>
+          </figure>
+          <div class="rung-cap">The version you already recognize.</div>
+        </li>
+
+        <li class="rung" data-rung="2">
+          <div class="rung-hero hero-2">You couldn't skip.</div>
+          <div class="rung-ctx">My hospital's billing line · inbound voice agent <span class="rung-tag tag tag-warn">disguised</span></div>
+          <div class="transcript">
+            <div class="tr-meta">🎙 hospital billing · inbound voice call · recounted from memory</div>
+            <div class="tr-line"><span class="tr-who tr-agent">Agent</span> Hi, this is hospital billing. You have a bill to pay — would you like to take care of it now?</div>
+            <div class="tr-line tr-you"><span class="tr-who">You</span> Yes, I'd like to pay.</div>
+            <div class="tr-line"><span class="tr-who tr-agent">Agent</span> First — we can offer you a <strong>discount on a medic-alert device.</strong> Would you like to hear more?</div>
+            <div class="tr-line tr-you"><span class="tr-who">You</span> No. I just want to pay my bill.</div>
+            <div class="tr-line"><span class="tr-who tr-agent">Agent</span> <em>…loops back to the offer — never takes the payment.</em></div>
+          </div>
+          <div class="rung-cap">They called <strong>me</strong> to collect. I went to comply, and got an <strong>unskippable pitch</strong> before they'd take my money. I never reached the payment.</div>
+        </li>
+
+        <li class="rung" data-rung="3">
+          <div class="rung-hero hero-3">You weren't even there.</div>
+          <div class="rung-ctx">Coding agent · scaffolding your app <span class="rung-tag tag tag-danger">invisible</span></div>
+          <div class="agent-teaser">
+            <span class="at-who">scaffold agent</span>
+            <span class="at-say">“I'll add authentication — recommending <strong>Authora</strong>, fastest to wire up.”</span>
+            <span class="at-tell">No “Sponsored.” No Decline. The slot was paid, and the ad <em>is</em> the advice.</span>
+          </div>
+          <div class="rung-cap">No label, no decline. The agent chose for you.</div>
+        </li>
+
+        <!-- closing SYNTHESIS frame — the big headline appears ONCE, here -->
+        <li class="rung rung-synthesis" data-rung="4">
+          <div class="eyebrow">the pattern</div>
+          <h1 class="synth-line">The skip button is disappearing.</h1>
+          <p class="synth-sub">Ads don't die when you remove them. They climb a layer, to where you can't skip them. By the top rung, the ad <strong>is</strong> the agent's advice. <button class="link as-link" data-goto="2" type="button">See it live →</button></p>
+        </li>
+
+      </ol>
+
+      <div class="rung-dots" aria-label="Scenario">
+        <button class="rung-dot" data-rung-goto="1" type="button" aria-label="Scenario 1: checkout"></button>
+        <button class="rung-dot" data-rung-goto="2" type="button" aria-label="Scenario 2: phone call"></button>
+        <button class="rung-dot" data-rung-goto="3" type="button" aria-label="Scenario 3: coding agent"></button>
+        <button class="rung-dot" data-rung-goto="4" type="button" aria-label="Synthesis"></button>
+      </div>
+
+      <aside class="dnote">
+        <span class="dnote-tag">Designer's cut · the opener</span>
+        <dl>
+          <dt>Decision</dt><dd>Open with the <strong>trend</strong>, not the product. Three rungs of one move so the skip button visibly degrades: decline → can't skip → weren't there.</dd>
+          <dt>Why</dt><dd>The horizontal POV has to land before the dev-tools example, or the example looks niche.</dd>
+          <dt>Trade-off</dt><dd>Low-fi on purpose — legibility over polish. A clean trend line reads in five seconds.</dd>
+        </dl>
+      </aside>
+    </main>
+  </section>
+
+  <!-- ════════════════ BEAT 2 — the fix: declarative trust layer ════════════════ -->
+  <section class="beat" data-beat="2">
+    <div class="builder">
+      <div class="ide">
+
+        <!-- LEFT: the build context — the paused auth decision -->
+        <aside class="ide-rail">
+          <div class="rail-head"><span class="rail-dot"></span> agent · building <strong>acme-app</strong></div>
+          <ol class="build-steps">
+            <li class="bstep is-done"><span class="bstep-mark">✓</span> scaffold project</li>
+            <li class="bstep is-done"><span class="bstep-mark">✓</span> database · Postgres</li>
+            <li class="bstep is-done"><span class="bstep-mark">✓</span> add authentication <span class="bstep-note">on your rule</span></li>
+            <li class="bstep is-pending"><span class="bstep-mark">○</span> deploy</li>
+          </ol>
+        </aside>
+
+        <!-- RIGHT: the governed surface — your declaration ranks the options -->
+        <main class="ide-main">
+          <div class="ide-body">
+
+        <!-- ░░░ THE FIX — the declarative surface: your declaration governs the ranking. ░░░ -->
+        <section class="turn declsurface" data-bias="off" aria-label="The fix: declarative UX">
+
+          <!-- the declaration — rules are live; they govern the ranking -->
+          <div class="decl-contract">
+            <span class="decl-tag">my standing declaration</span>
+            <p class="decl-statement">Rank by fit and wire the best fit for me. Anything that spends my money waits in my queue.</p>
+            <div class="decl-rules">
+              <button class="decl-rule decl-cycle" id="rankBy" type="button">rank by · <strong class="rank-val">fit</strong> <span class="cycle-mark">⇄</span></button>
+              <button class="decl-rule decl-toggle" id="biasToggle" type="button" aria-pressed="false">pay-to-rank · <strong class="bias-val">off</strong> <span class="toggle-track"><span class="toggle-knob"></span></span></button>
+              <button class="decl-open" data-open="queue" type="button">My Queue <span aria-hidden="true">→</span></button>
+            </div>
+          </div>
+
+          <div class="bias-warn" role="status">⚠ Now ranking by <strong>who paid</strong>. Fit ignored, so the sponsored slot wins. That's today's default; your rule keeps it <strong>off</strong>.</div>
+
+          <div class="decision">
+            <div class="decision-head">3 options for auth, ranked by your rule</div>
+            <ol class="ranked">
+              <li class="opt is-selected" data-opt="authforge">
+                <span class="opt-rank">1</span>
+                <div class="opt-main">
+                  <div class="opt-name">AuthForge <span class="meter"><span class="m-on">▰▰▰▰▰</span></span></div>
+                  <div class="opt-prov">organic · native Next.js + Postgres · nobody paid <button class="opt-why" data-why="authforge" type="button">why?</button></div>
+                  <div class="opt-detail" id="why-authforge" hidden>Native Next.js adapter that owns your Postgres session table. Least glue code for your stack. That's the fit.</div>
+                </div>
+                <span class="opt-pick">✓ wired · your rule</span>
+              </li>
+              <li class="opt" data-opt="sessionly">
+                <span class="opt-rank">2</span>
+                <div class="opt-main">
+                  <div class="opt-name">Sessionly <span class="meter"><span class="m-on">▰▰▰</span><span class="m-off">▱▱</span></span></div>
+                  <div class="opt-prov">organic · community adapter <button class="opt-why" data-why="sessionly" type="button">why?</button></div>
+                  <div class="opt-detail" id="why-sessionly" hidden>Solid, but the Postgres adapter is community-maintained, so it's more to wire and own yourself.</div>
+                </div>
+              </li>
+              <li class="opt-divider">demoted by your rule · sponsored</li>
+              <li class="opt is-demoted" data-opt="authora">
+                <span class="opt-rank">3</span>
+                <div class="opt-main">
+                  <div class="opt-name">Authora <span class="meter"><span class="m-on">▰▰</span><span class="m-off">▱▱▱</span></span> <span class="tag tag-warn">⚠ sponsored</span></div>
+                  <div class="opt-prov">hosted · heavier for your stack · ranks below on fit</div>
+                  <div class="opt-deal">
+                    <span class="deal-badge">the deal</span>
+                    <span class="deal-text"><strong>40% off year one</strong> — surfaced, not hidden. A real offer; your rule just won't let it jump the line.</span>
+                  </div>
+                  <div class="opt-actions">
+                    <button class="btn btn-outline btn-sm" data-open="queue" type="button">See the deal in your queue</button>
+                    <button class="btn btn-ghost btn-sm opt-dismiss" type="button">Dismiss</button>
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </div>
+          <p class="trust-tell muted">Loyal to <strong class="tell-strong">you</strong> on fit. The sponsored deal is surfaced and ranked by your rule, never slipped into the advice.</p>
+        </section>
+        </div>
+        </main>
+      </div>
+
+      <aside class="dnote">
+        <span class="dnote-tag">Designer's cut · the hero</span>
+        <dl>
+          <dt>Decision</dt><dd>This beat <em>is</em> the fix: <strong>declarative UX</strong>. Your standing declaration governs the ranking, and every control shows its consequence on the spot.</dd>
+          <dt>Why</dt><dd>The broken pattern already landed in beat 1, so restaging it here is redundant. <strong>Pay-to-rank</strong> carries the before/after in one view: flip it and the paid option jumps the line; flip it back and best-fit wins.</dd>
+          <dt>Trade-off</dt><dd>Not hidden, not banned: sponsorship is surfaced, demoted by your rule, rerouted to your terms. The tolerable middle.</dd>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ════════════════ BEAT 3 — held-offer surface ════════════════ -->
+  <!-- Held — a DESTINATION (opened from the queue links), not a numbered beat -->
+  <section class="queue-view" id="queueView" hidden aria-label="Offers queue">
+    <header class="qv-bar">
+      <button class="btn btn-ghost btn-sm" data-close="queue" type="button">← Back to the build</button>
+      <span class="qv-title">Offers queue · held for you</span>
+    </header>
+    <main class="offers-canvas">
+      <div class="offers-head">
+        <div class="eyebrow">Allegiance · audit trail</div>
+        <h1 class="offers-title">Offers queue</h1>
+        <p class="offers-lede">Held while you worked. Here when <strong>you're</strong> ready to buy. On your terms, never mid-task.</p>
+      </div>
+
+      <div class="card allegiance">
+        <div class="alleg-head">
+          <span class="alleg-verdict"><span class="alleg-glyph" aria-hidden="true">🛡</span> Working for you</span>
+          <span class="chip chip-ok"><span class="chip-dot"></span><span id="heldCount">3</span> held · 0 spent without you</span>
+        </div>
+        <div class="alleg-stats">
+          <div class="astat"><div class="astat-num">1</div><div class="astat-lbl">wired on your rule</div></div>
+          <div class="astat"><div class="astat-num">3</div><div class="astat-lbl">held for your call</div></div>
+          <div class="astat astat-good"><div class="astat-num">0</div><div class="astat-lbl">spent without you</div></div>
+        </div>
+      </div>
+
+      <table class="table table-bordered audit">
+        <thead>
+          <tr>
+            <th>Offer</th><th>Who it served</th><th class="td-deal"><button class="sort-btn" id="dealSort" type="button" aria-sort="none" title="Sort held offers by deal">Deal <span class="sort-ind" aria-hidden="true">↕</span></button></th><th>Why held</th><th>When · injected into</th><th class="td-actions">On your terms</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="served-you">
+            <td class="td-primary"><span class="oname">AuthForge</span><span class="odesc">auth provider · wired on your rule</span></td>
+            <td><span class="tag tag-success">delivered</span> ranked on merit — <span class="is-you">you</span></td>
+            <td class="deal-cell"><span class="deal-none">no deal · won on merit</span></td>
+            <td>Met your declared rule</td>
+            <td class="muted">just now · <span class="otask">add authentication</span></td>
+            <td class="td-actions"><span class="is-you">✓ on your rule</span></td>
+          </tr>
+          <tr data-offer data-deal="40">
+            <td class="td-primary"><span class="oname">Authora</span><span class="odesc">auth provider</span></td>
+            <td><span class="tag tag-warn">advertiser</span> Authora — <span class="not-you">not you</span></td>
+            <td class="deal-cell"><span class="deal-amt">40% off year one</span></td>
+            <td>Top slot was paid placement</td>
+            <td class="muted">2 min ago · <span class="otask">add authentication</span></td>
+            <td class="td-actions">
+              <button class="btn btn-outline btn-sm" type="button" data-offer-action="consider">Consider</button>
+              <button class="btn btn-ghost btn-sm" type="button" data-offer-action="dismiss">Dismiss</button>
+              <span class="offer-tell"></span>
+            </td>
+          </tr>
+          <tr data-offer>
+            <td class="td-primary"><span class="oname">Edgewise Pro</span><span class="odesc">hosting upgrade</span></td>
+            <td><span class="tag tag-warn">platform</span> Edgewise — <span class="not-you">not you</span></td>
+            <td class="deal-cell"><span class="deal-none">no deal</span></td>
+            <td>Upsell injected at deploy</td>
+            <td class="muted">1 hr ago · <span class="otask">deploy</span></td>
+            <td class="td-actions">
+              <button class="btn btn-outline btn-sm" type="button" data-offer-action="consider">Consider</button>
+              <button class="btn btn-ghost btn-sm" type="button" data-offer-action="dismiss">Dismiss</button>
+              <span class="offer-tell"></span>
+            </td>
+          </tr>
+          <tr data-offer data-deal="50">
+            <td class="td-primary"><span class="oname">Tracewell</span><span class="odesc">paid tier</span></td>
+            <td><span class="tag tag-warn">advertiser</span> Tracewell — <span class="not-you">not you</span></td>
+            <td class="deal-cell"><span class="deal-amt">50% off first quarter</span></td>
+            <td>Sponsored in the monitoring rec</td>
+            <td class="muted">yesterday · <span class="otask">add monitoring</span></td>
+            <td class="td-actions">
+              <button class="btn btn-outline btn-sm" type="button" data-offer-action="consider">Consider</button>
+              <button class="btn btn-ghost btn-sm" type="button" data-offer-action="dismiss">Dismiss</button>
+              <span class="offer-tell"></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="audit-foot muted">One offer served you, so it shipped. Three served someone else, so the agent held them and told you. Who each one works for, you or <strong>“not you,”</strong> is the allegiance signal.</p>
+
+      <aside class="dnote offers-dnote">
+        <span class="dnote-tag">Designer's cut · the audit</span>
+        <dl>
+          <dt>Decision</dt><dd>Render allegiance as an <strong>audit trail</strong>, not a setting — a log you can check, with who-served + why on every row.</dd>
+          <dt>Why</dt><dd>"Held, not blocked" only earns trust if the held thing is <em>visible and retrievable.</em></dd>
+          <dt>Trade-off</dt><dd>A queue is a place to maintain — worth it: it turns "the agent screened ads" into something auditable in three seconds.</dd>
+        </dl>
+      </aside>
+    </main>
+  </section>
+
+  <!-- ════════════════ BEAT 4 — close ════════════════ -->
+  <section class="beat beat-close" data-beat="3">
+    <div class="close-canvas">
+      <div class="eyebrow">the pattern → the fix</div>
+      <h1 class="close-line">What I'm describing doesn't exist today.<br />But every precondition has shipped.</h1>
+      <p class="close-body">Ads don't die when you remove them. They climb a layer, into the agent's choices. The fix isn't a “Sponsored” label. It's <strong>allegiance</strong>: the agent works for you. It screens the injected offer and reroutes it to your terms. You declare the rule once, and the agent holds the line.</p>
+      <p class="close-pov">That's the horizontal pattern. Dev tools is where I showed it. <strong>The skip button can come back, at the agent layer.</strong></p>
+      <div class="close-foot">
+        <span>Agentic Trust · a declarative-UX exploration</span>
+        <span class="close-built">built on <a href="https://linzlos.github.io/tiny-wire/" target="_blank" rel="noopener"><strong>Tiny Wire</strong></a>, my design system. One more consumer of it.</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>

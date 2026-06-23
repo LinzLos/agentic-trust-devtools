@@ -1,0 +1,6 @@
+/* Tiny Wire — globals.css
+   Compatibility shim: the original single-file entry point, now tokens + base.
+   New consumers may vendor tokens.css / base.css directly. See lib/CONSUMING.md. */
+
+@import "tokens.css";
+@import "base.css";
