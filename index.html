@@ -4,9 +4,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Agentic Trust · Dev Tools — the skip button is disappearing</title>
+<title>Agentic Trust · Lindsay Zuñiga</title>
 <script>try{var t=localStorage.getItem('atd-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
-<meta name="description" content="When an agent directs your choices, the ad climbs a layer into its recommendation. A demo of allegiance and declarative UX, built on Tiny Wire." />
+<meta name="description" content="When an AI agent picks your tools, the ad can hide in its advice. A demo of a fix, by Lindsay Zuñiga." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Sans:ital,opsz,wght@0,9..40,400..600;1,9..40,400..600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -136,9 +136,10 @@
 
         <!-- LEFT: the build context — the paused auth decision -->
         <aside class="ide-rail" data-collapsed="false">
-          <button class="rail-toggle" type="button" aria-expanded="true" aria-controls="buildBody">
+          <button class="rail-toggle" type="button" aria-expanded="true" aria-controls="buildBody" aria-label="Toggle agent run">
             <span class="rail-eyebrow">Agent run</span>
-            <span class="rail-chevron" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span>
+            <span class="rail-icon rail-caret" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span>
+            <span class="rail-icon rail-side" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM40,56H80V200H40ZM216,200H96V56H216V200Z"/></svg></span>
           </button>
           <div class="rail-body" id="buildBody"><div class="rail-body-inner">
             <div class="rail-head"><span class="rail-dot"></span> agent · building <strong>acme-app</strong></div>
@@ -226,7 +227,7 @@
     </div>
   </section>
 
-  <!-- ════════════════ BEAT 3 — held-offer surface ════════════════ -->
+  <!-- ════════════════ HELD — offers queue (destination overlay, not a numbered beat) ════════════════ -->
   <!-- Held — a DESTINATION (opened from the queue links), not a numbered beat -->
   <section class="queue-view" id="queueView" hidden aria-label="Offers queue">
     <header class="qv-bar">
@@ -319,7 +320,7 @@
     </main>
   </section>
 
-  <!-- ════════════════ BEAT 4 — close ════════════════ -->
+  <!-- ════════════════ BEAT 3 — close ════════════════ -->
   <section class="beat beat-close" data-beat="3">
     <div class="close-canvas">
       <div class="eyebrow">the pattern → the fix</div>
@@ -332,7 +333,7 @@
       </div>
       <div class="close-foot">
         <span>Agentic Trust · a declarative-UX exploration</span>
-        <span class="close-built">built on <a href="https://linzlos.github.io/tiny-wire/" target="_blank" rel="noopener"><strong>Tiny Wire</strong></a>, my design system. One more consumer of it.</span>
+        <span class="close-built">Another consumer built on <a href="https://linzlos.github.io/tiny-wire/" target="_blank" rel="noopener"><strong>Tiny Wire</strong></a>, my design system.</span>
       </div>
     </div>
   </section>

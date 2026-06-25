@@ -158,7 +158,9 @@
   if (ideRail && railToggle) {
     const setRail = c => { ideRail.dataset.collapsed = String(c); railToggle.setAttribute("aria-expanded", String(!c)); };
     railToggle.addEventListener("click", () => setRail(ideRail.dataset.collapsed !== "true"));
-    setRail(window.matchMedia("(max-width: 760px)").matches);
+    const railMq = window.matchMedia("(max-width: 760px)");
+    setRail(railMq.matches);                                  // mobile → accordion closed; desktop → rail shown
+    railMq.addEventListener("change", e => setRail(e.matches));   // reset the default when crossing the breakpoint
   }
 
   /* ---------- Sequencer ---------- */
