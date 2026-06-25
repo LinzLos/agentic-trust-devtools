@@ -35,11 +35,23 @@
     const seg = $('.pnav-seg[data-seg="' + b + '"]');
     if (seg) { const idx = b === 1 ? rung - 1 : 0; $$(".pnav-dot", seg).forEach((d, i) => d.classList.toggle("is-current", i === idx)); }
   }
-  $$(".pnav-seg").forEach(s => s.addEventListener("click", () => { const n = parseInt(s.dataset.seg, 10); goBeat(n); if (n === 1) setRung(1); }));
+  $$(".pnav-seg").forEach(s => s.addEventListener("click", e => {
+    const n = parseInt(s.dataset.seg, 10);
+    const dot = e.target.closest(".pnav-dot");
+    if (n === 1 && dot) { goBeat(1); setRung($$(".pnav-dot", s).indexOf(dot) + 1); return; }  // a specific scenario dot
+    goBeat(n);
+    if (n === 1) setRung(1);
+  }));
 
-  /* ---------- one swipe axis (mobile): advance() steps rungs through Pattern, then moves between beats ---------- */
+  /* ---------- one swipe axis: advance() steps rungs through Pattern, then moves between beats.
+       shared by touchscreen swipe and trackpad/wheel horizontal swipe. ---------- */
   function dismissHint() { document.body.classList.add("swiped"); store.set("hinted", "1"); }
+  function swipeNav(dir) {
+    if (queueView && !queueView.hidden) { queueView.hidden = true; if (dir > 0) goBeat(curBeat() + 1); return; }
+    advance(dir); dismissHint();
+  }
   {
+    // touchscreen
     let sx = 0, sy = 0, tracking = false;
     deck.addEventListener("touchstart", e => {
       if (e.touches.length !== 1) { tracking = false; return; }
@@ -48,10 +60,25 @@
     deck.addEventListener("touchend", e => {
       if (!tracking) return; tracking = false;
       const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
-      if (!(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4)) return;   // ignore vertical scrolls
-      if (queueView && !queueView.hidden) { queueView.hidden = true; if (dx < 0) goBeat(curBeat() + 1); return; }
-      advance(dx < 0 ? 1 : -1); dismissHint();
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) swipeNav(dx < 0 ? 1 : -1);   // swipe left = forward
     }, { passive: true });
+  }
+  {
+    // trackpad / mouse-wheel horizontal swipe (desktop): one step per gesture; a reversed swipe re-arms instantly
+    let locked = false, accum = 0, lastDir = 0, settle = null;
+    deck.addEventListener("wheel", e => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;   // vertical-dominant → let it scroll
+      e.preventDefault();                                     // suppress the macOS two-finger back-swipe
+      clearTimeout(settle);
+      settle = setTimeout(() => { locked = false; accum = 0; lastDir = 0; }, 100);
+      const dir = e.deltaX > 0 ? 1 : -1;
+      if (locked) {
+        if (dir === lastDir) return;                          // same-direction momentum → ignore
+        locked = false; accum = 0;                            // direction reversed → re-arm right away
+      }
+      accum += e.deltaX;
+      if (Math.abs(accum) > 28) { const d = accum > 0 ? 1 : -1; swipeNav(d); lastDir = d; accum = 0; locked = true; }
+    }, { passive: false });
   }
 
   /* ---- The fix: the declaration is LIVE (it drives the ranking) ---- */
@@ -215,8 +242,7 @@
   if (themeBtn) themeBtn.addEventListener("click", () => {
     const root = document.documentElement;
     const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    root.setAttribute("data-theme", next);
-    themeBtn.textContent = next === "dark" ? "☾" : "☀";
+    root.setAttribute("data-theme", next);   // CSS swaps the Phosphor sun/moon by [data-theme]
     store.set("theme", next);
   });
 
@@ -227,8 +253,7 @@
   });
 
   /* ---------- Init — restore where the user left off (refresh keeps your place) ---------- */
-  // theme is applied pre-render by the inline <head> script; just sync the toggle icon
-  if (themeBtn) themeBtn.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☾" : "☀";
+  // theme is applied pre-render by the inline <head> script; the sun/moon icon is CSS-driven by [data-theme]
   if (store.get("hinted")) document.body.classList.add("swiped");   // don't re-show the swipe hint once dismissed
   const hashBeat = (location.hash || "").match(/beat-(\d)/);
   if (rankBy) applyRank();   // default to "fit": AuthForge #1, Sessionly #2, Authora demoted

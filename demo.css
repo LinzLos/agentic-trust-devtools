@@ -6,7 +6,7 @@
    near-future chat for the declarative fix.
    ========================================================================== */
 
-html, body { height: 100%; }
+html, body { height: 100%; overscroll-behavior: none; }   /* stop the browser/OS swipe-to-go-back from eating the back swipe */
 /* lock the page to the viewport: the deck-bar can never scroll away, only beats scroll internally */
 body { background: var(--surface-page); color: var(--text-primary); overflow: hidden; }
 
@@ -139,7 +139,10 @@ body { background: var(--surface-page); color: var(--text-primary); overflow: hi
 .hero-2 { font-size: var(--text-4xl); color: var(--warning); }
 .hero-3 { font-size: var(--text-5xl); color: var(--danger); }
 .rung-ctx { display: flex; align-items: center; gap: var(--space-8); flex-wrap: wrap; font-size: var(--text-md); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--text-tertiary); font-weight: var(--weight-semibold); }
-.rung-tag { text-transform: none; letter-spacing: 0; }
+.rung-tag { align-self: flex-start; text-transform: uppercase; letter-spacing: var(--tracking-caps); font-size: var(--text-sm); font-weight: var(--weight-bold); padding: var(--space-4) var(--space-10); }
+/* these category chips are meant to be loud — override the DS's quiet dark-mode tag fill with a visible tint + outline */
+.rung-tag.tag-warn { background: color-mix(in srgb, var(--warning) 16%, transparent); border-color: color-mix(in srgb, var(--warning) 50%, transparent); color: var(--warning); }
+.rung-tag.tag-danger { background: color-mix(in srgb, var(--danger) 16%, transparent); border-color: color-mix(in srgb, var(--danger) 50%, transparent); color: var(--danger); }
 .rung-cap { font-size: var(--text-base); color: var(--text-secondary); line-height: var(--leading-normal); }
 .rung-cap strong { color: var(--text-primary); }
 
@@ -179,7 +182,10 @@ body { background: var(--surface-page); color: var(--text-primary); overflow: hi
 .synth-sub strong { color: var(--text-primary); }
 
 @media (max-width: 720px) {
-  .hero-3, .synth-line { font-size: var(--text-4xl); }
+  /* longer headers on small screens: scale down, color still carries the escalation */
+  .rung-hero { font-size: var(--text-3xl); }
+  .hero-3 { font-size: var(--text-2xl); }   /* the longest line — keep it from overflowing */
+  .synth-line { font-size: var(--text-4xl); }
 }
 
 /* ════════════════════════ Four-beat deck / sequencer ════════════════════════ */
@@ -196,10 +202,6 @@ body { background: var(--surface-page); color: var(--text-primary); overflow: hi
 .brand-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: var(--radius-sm); background: var(--text-primary); color: var(--surface); flex: none; }
 .brand-badge svg { width: 14px; height: 14px; }
 .brand-name { line-height: 1; }
-.brand-gh { display: inline-flex; align-items: center; gap: 1px; margin-left: var(--space-2); color: var(--text-tertiary); }
-.brand-gh svg { width: 16px; height: 16px; }
-.brand-gh-arrow { font-size: var(--text-sm); }
-.brand-gh:hover { color: var(--brand); }
 
 .deck-progress { display: flex; gap: var(--space-4); margin: 0 auto; }
 .deck-dot {
@@ -218,6 +220,10 @@ body { background: var(--surface-page); color: var(--text-primary); overflow: hi
 .deck-dot.is-current .dd-n { background: var(--brand); color: var(--brand-fg); border-color: var(--brand); }
 
 .deck-actions { display: flex; align-items: center; gap: var(--space-8); }
+/* theme toggle — Phosphor sun/moon, swapped by [data-theme] (no emoji glyphs) */
+#themeToggle svg, #ghLink svg { width: 18px; height: 18px; display: block; }
+html[data-theme="dark"] #themeToggle .ti-sun { display: none; }
+html[data-theme="light"] #themeToggle .ti-moon { display: none; }
 .deck-hint { font-size: var(--text-md); color: var(--text-tertiary); display: inline-flex; align-items: center; gap: var(--space-4); }
 .deck-hint .kbd { margin: 0 1px; }
 
@@ -407,9 +413,6 @@ body.notes-on .dnote { display: block; }
 .opt-actions { display: flex; gap: var(--space-8); margin-top: var(--space-10); }
 
 /* ════════════════ Beat 2 — two-panel IDE, a framed pattern canvas ════════════════ */
-/* framing line — marks the shift from the real-world Pattern examples to the not-yet-built fix */
-.demo-frame { margin: 0 var(--space-20) var(--space-10); font-size: var(--text-md); color: var(--text-secondary); line-height: var(--leading-normal); }
-.demo-frame strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
 .ide {
   display: flex; flex: 1; min-height: 0;
   margin: 0 var(--space-20) var(--space-20);
@@ -506,13 +509,17 @@ body.designer-enabled #notesToggle { display: inline-flex; }
   .pnav-label { font-size: var(--text-2xs); text-transform: uppercase; letter-spacing: var(--tracking-caps); font-weight: var(--weight-bold); color: var(--text-tertiary); }
   .pnav-seg.is-active { border-top-color: var(--brand); }
   .pnav-seg.is-active .pnav-label { color: var(--brand); }
-  .pnav-dots { display: flex; gap: var(--space-6); align-items: center; height: 5px; }
+  .pnav-dots { display: flex; gap: var(--space-8); align-items: center; }
   .pnav-seg:not(.is-active) .pnav-dots { visibility: hidden; }   /* reserve space — no layout jump between sections */
-  .pnav-dot { width: 5px; height: 5px; border-radius: var(--radius-full); background: var(--border-strong); }
+  .pnav-dot { width: 8px; height: 8px; border-radius: var(--radius-full); background: var(--border-strong); cursor: pointer; }
+  .pnav-seg.is-active .pnav-dot:hover { background: color-mix(in srgb, var(--brand) 50%, var(--border-strong)); }
   .pnav-dot.is-current { background: var(--brand); }
 
   /* one swipe axis: browser pans vertically, JS owns horizontal (no back-swipe hijack) */
-  .deck { touch-action: pan-y; }
+  .deck, .beat { touch-action: pan-y; }
+
+  /* reclaim vertical space: the persistent thesis billboard is desktop-only (the rungs + close carry it on mobile) */
+  .billboard { display: none; }
 
   /* taller header, 44px tap targets, larger icons */
   .deck-bar { min-height: 56px; padding: var(--space-6) var(--space-12); gap: var(--space-8); }
@@ -520,10 +527,8 @@ body.designer-enabled #notesToggle { display: inline-flex; }
   .brand-badge { width: 38px; height: 38px; }
   .brand-badge svg { width: 22px; height: 22px; }
   .brand-name { font-size: var(--text-md); }
-  .brand-gh { min-width: 44px; min-height: 44px; justify-content: center; }
-  .brand-gh svg { width: 24px; height: 24px; }
-  .brand-gh-arrow { display: none; }
-  #themeToggle { min-width: 44px; min-height: 44px; font-size: var(--text-xl); }
+  #themeToggle, #ghLink { min-width: 44px; min-height: 44px; }
+  #themeToggle svg, #ghLink svg { width: 24px; height: 24px; }
 
   /* one-time swipe hint, only on the first screen, gone after the first swipe */
   .ladder-canvas[data-rung="1"] .swipe-hint { display: inline-flex; align-self: center; align-items: center; gap: var(--space-6); margin-top: var(--space-8); padding: var(--space-6) var(--space-14); border-radius: var(--radius-full); background: var(--surface-muted); border: 1px solid var(--border); font-size: var(--text-sm); color: var(--text-secondary); }
