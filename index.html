@@ -39,7 +39,14 @@
     </div>
   </header>
 
-  <!-- Persistent thesis billboard — identical across every beat (does NOT flip with F) -->
+  <!-- mobile progress nav: segmented Pattern / Demo / Close; active section shows its slide dots -->
+  <nav class="pnav" aria-label="Progress">
+    <button class="pnav-seg" data-seg="1" type="button"><span class="pnav-label">Pattern</span><span class="pnav-dots" aria-hidden="true"><span class="pnav-dot"></span><span class="pnav-dot"></span><span class="pnav-dot"></span><span class="pnav-dot"></span></span></button>
+    <button class="pnav-seg" data-seg="2" type="button"><span class="pnav-label">Demo</span><span class="pnav-dots" aria-hidden="true"><span class="pnav-dot"></span></span></button>
+    <button class="pnav-seg" data-seg="3" type="button"><span class="pnav-label">Close</span><span class="pnav-dots" aria-hidden="true"><span class="pnav-dot"></span></span></button>
+  </nav>
+
+  <!-- Persistent thesis billboard — identical across every beat -->
   <div class="billboard">
     <div class="ts ts-thesis">
       <span class="ts-verdict">Ambush ads break AI agents. Routed ads fund them.</span>
@@ -106,6 +113,8 @@
         <button class="rung-dot" data-rung-goto="4" type="button" aria-label="Synthesis"></button>
       </div>
 
+      <div class="swipe-hint" aria-hidden="true">Swipe to explore <span class="sh-arrow">→</span></div>
+
       <aside class="dnote">
         <span class="dnote-tag">Designer's cut · the opener</span>
         <dl>
@@ -120,17 +129,24 @@
   <!-- ════════════════ BEAT 2 — the fix: declarative trust layer ════════════════ -->
   <section class="beat" data-beat="2">
     <div class="builder">
+      <p class="demo-frame">Those were <strong>real</strong>. This isn't, <strong>yet</strong>. But every precondition has shipped.</p>
       <div class="ide">
 
         <!-- LEFT: the build context — the paused auth decision -->
-        <aside class="ide-rail">
-          <div class="rail-head"><span class="rail-dot"></span> agent · building <strong>acme-app</strong></div>
-          <ol class="build-steps">
-            <li class="bstep is-done"><span class="bstep-mark">✓</span> scaffold project</li>
-            <li class="bstep is-done"><span class="bstep-mark">✓</span> database · Postgres</li>
-            <li class="bstep is-done"><span class="bstep-mark">✓</span> add authentication <span class="bstep-note">on your rule</span></li>
-            <li class="bstep is-pending"><span class="bstep-mark">○</span> deploy</li>
-          </ol>
+        <aside class="ide-rail" data-collapsed="false">
+          <button class="rail-toggle" type="button" aria-expanded="true" aria-controls="buildBody">
+            <span class="rail-eyebrow">Agent run</span>
+            <span class="rail-chevron" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span>
+          </button>
+          <div class="rail-body" id="buildBody"><div class="rail-body-inner">
+            <div class="rail-head"><span class="rail-dot"></span> agent · building <strong>acme-app</strong></div>
+            <ol class="build-steps">
+              <li class="bstep is-done"><span class="bstep-mark">✓</span> scaffold project</li>
+              <li class="bstep is-done"><span class="bstep-mark">✓</span> database · Postgres</li>
+              <li class="bstep is-done"><span class="bstep-mark">✓</span> add authentication <span class="bstep-note">on your rule</span></li>
+              <li class="bstep is-pending"><span class="bstep-mark">○</span> deploy</li>
+            </ol>
+          </div></div>
         </aside>
 
         <!-- RIGHT: the governed surface — your declaration ranks the options -->
@@ -308,10 +324,10 @@
       <h1 class="close-line">What I'm describing doesn't exist today.<br />But every precondition has shipped.</h1>
       <p class="close-body">Ads don't die when you remove them. They climb a layer, into the agent's choices. The fix isn't a “Sponsored” label. It's <strong>allegiance</strong>: the agent works for you. It screens the injected offer and reroutes it to your terms. You declare the rule once, and the agent holds the line.</p>
       <p class="close-pov">That's the horizontal pattern. <strong>Dev tools is where I showed it.</strong></p>
-      <a class="close-qr" href="https://linzlos.github.io/agentic-trust-devtools/" target="_blank" rel="noopener">
-        <img class="close-qr-img" src="assets/demo-qr.svg" alt="QR code linking to the live demo" width="120" height="120" />
-        <span class="close-qr-label">Scan to open the live demo<br /><span class="close-qr-url">linzlos.github.io/agentic-trust-devtools</span></span>
-      </a>
+      <div class="close-cta">
+        <a class="btn btn-brand" href="https://github.com/LinzLos/agentic-trust-devtools" target="_blank" rel="noopener">View on GitHub <span aria-hidden="true">→</span></a>
+        <span class="close-by">by <strong>Lindsay Zuñiga</strong></span>
+      </div>
       <div class="close-foot">
         <span>Agentic Trust · a declarative-UX exploration</span>
         <span class="close-built">built on <a href="https://linzlos.github.io/tiny-wire/" target="_blank" rel="noopener"><strong>Tiny Wire</strong></a>, my design system. One more consumer of it.</span>

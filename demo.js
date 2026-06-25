@@ -24,16 +24,33 @@
     if (ladder) ladder.dataset.rung = String(rung);
     $$(".rung-dot").forEach(d => d.classList.toggle("is-current", d.dataset.rungGoto === String(rung)));
     store.set("rung", rung);
+    updateProgress();
   }
   $$(".rung-dot").forEach(d => d.addEventListener("click", () => setRung(parseInt(d.dataset.rungGoto, 10))));
-  // mobile: swipe the carousel left/right, same as the ← / → keys (advance() steps rungs, then beats)
-  if (ladder) {
-    let sx = 0, sy = 0, swiping = false;
-    ladder.addEventListener("touchstart", e => { if (e.touches.length === 1) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; swiping = true; } }, { passive: true });
-    ladder.addEventListener("touchend", e => {
-      if (!swiping) return; swiping = false;
+
+  /* ---------- mobile progress nav: segmented Pattern/Demo/Close; active section shows its slide dots ---------- */
+  function updateProgress() {
+    const b = curBeat();
+    $$(".pnav-seg").forEach(s => s.classList.toggle("is-active", s.dataset.seg === String(b)));
+    const seg = $('.pnav-seg[data-seg="' + b + '"]');
+    if (seg) { const idx = b === 1 ? rung - 1 : 0; $$(".pnav-dot", seg).forEach((d, i) => d.classList.toggle("is-current", i === idx)); }
+  }
+  $$(".pnav-seg").forEach(s => s.addEventListener("click", () => { const n = parseInt(s.dataset.seg, 10); goBeat(n); if (n === 1) setRung(1); }));
+
+  /* ---------- one swipe axis (mobile): advance() steps rungs through Pattern, then moves between beats ---------- */
+  function dismissHint() { document.body.classList.add("swiped"); store.set("hinted", "1"); }
+  {
+    let sx = 0, sy = 0, tracking = false;
+    deck.addEventListener("touchstart", e => {
+      if (e.touches.length !== 1) { tracking = false; return; }
+      sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+    }, { passive: true });
+    deck.addEventListener("touchend", e => {
+      if (!tracking) return; tracking = false;
       const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
-      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) advance(dx < 0 ? 1 : -1);
+      if (!(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4)) return;   // ignore vertical scrolls
+      if (queueView && !queueView.hidden) { queueView.hidden = true; if (dx < 0) goBeat(curBeat() + 1); return; }
+      advance(dx < 0 ? 1 : -1); dismissHint();
     }, { passive: true });
   }
 
@@ -109,6 +126,14 @@
     if (actions) actions.remove();
   }));
 
+  /* ---- AGENT RUN rail: collapse control (collapsed on mobile, open on desktop) ---- */
+  const ideRail = $(".ide-rail"), railToggle = $(".rail-toggle");
+  if (ideRail && railToggle) {
+    const setRail = c => { ideRail.dataset.collapsed = String(c); railToggle.setAttribute("aria-expanded", String(!c)); };
+    railToggle.addEventListener("click", () => setRail(ideRail.dataset.collapsed !== "true"));
+    setRail(window.matchMedia("(max-width: 760px)").matches);
+  }
+
   /* ---------- Sequencer ---------- */
   function goBeat(n) {
     n = Math.max(1, Math.min(BEATS, n));
@@ -117,6 +142,7 @@
     $$(".deck-dot").forEach(d => d.classList.toggle("is-current", d.dataset.goto === String(n)));
     if (history.replaceState) history.replaceState(null, "", "#beat-" + n);
     store.set("beat", n);
+    updateProgress();
   }
   const curBeat = () => parseInt(deck.dataset.beat, 10) || 1;
 
@@ -203,6 +229,7 @@
   /* ---------- Init — restore where the user left off (refresh keeps your place) ---------- */
   // theme is applied pre-render by the inline <head> script; just sync the toggle icon
   if (themeBtn) themeBtn.textContent = document.documentElement.getAttribute("data-theme") === "dark" ? "☾" : "☀";
+  if (store.get("hinted")) document.body.classList.add("swiped");   // don't re-show the swipe hint once dismissed
   const hashBeat = (location.hash || "").match(/beat-(\d)/);
   if (rankBy) applyRank();   // default to "fit": AuthForge #1, Sessionly #2, Authora demoted
   setRung(parseInt(store.get("rung"), 10) || 1);
