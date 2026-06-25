@@ -471,6 +471,8 @@ body.notes-on .dnote { display: block; }
 .billboard .ts { width: 100%; }
 /* the Close restates the whole thesis, so the billboard is redundant there — hide it and give the close the room */
 #deck[data-beat="3"] .billboard { display: none; }
+/* no designer's-cut note on the Close, so hide its toggle there (a control that reveals nothing is confusing) */
+#deck[data-beat="3"] #notesToggle { display: none; }
 
 /* the decision content scrolls here; rail + trust-state stay put */
 .ide-body { flex: 1; min-height: 0; overflow: auto; padding: var(--space-20) var(--space-24); }
@@ -512,6 +514,8 @@ body.notes-on .dnote { display: block; }
 /* Designer's cut — hidden during the live run; press D to enable (button + annotations), persists for the session */
 /* Designer's cut — a visible toggle: labeled button on desktop, icon on mobile (tap to reveal the notes) */
 #notesToggle .nt-icon { display: none; }
+/* active (notes revealed): brand-tinted so the "on" state is unmistakable */
+#notesToggle[aria-pressed="true"] { background: color-mix(in srgb, var(--brand) 16%, transparent); color: var(--brand); }
 
 /* ════════════════ Mobile optimization pass — segmented nav, big-tap header, swipe hint ════════════════ */
 /* base: hidden on desktop, shown on small screens */
