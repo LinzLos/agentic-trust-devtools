@@ -32,7 +32,7 @@
     </nav>
     <div class="deck-actions">
       <span class="deck-hint"><kbd class="kbd">←</kbd><kbd class="kbd">→</kbd> beats</span>
-      <button class="btn btn-ghost btn-sm" id="notesToggle" type="button" aria-pressed="false">Designer's cut</button>
+      <button class="btn btn-ghost btn-sm" id="notesToggle" type="button" aria-pressed="false" aria-label="Designer's cut"><svg class="nt-icon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M184,112a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h64A8,8,0,0,1,184,112Zm-8,24H112a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm48-88V208a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48ZM48,208H72V48H48Zm160,0V48H88V208H208Z"/></svg><span class="nt-label">Designer's cut</span></button>
       <button class="btn btn-ghost btn-sm btn-icon" id="fsToggle" type="button" title="Fullscreen" aria-label="Fullscreen">⛶</button>
       <a class="btn btn-ghost btn-sm btn-icon" id="ghLink" href="https://github.com/LinzLos/agentic-trust-devtools" target="_blank" rel="noopener" aria-label="View source on GitHub"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"/></svg></a>
       <button class="btn btn-ghost btn-sm btn-icon" id="themeToggle" type="button" title="Toggle theme" aria-label="Toggle theme"><svg class="ti-sun" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></svg><svg class="ti-moon" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23ZM188.9,190.34A88,88,0,0,1,65.66,67.11a89,89,0,0,1,31.4-26A106,106,0,0,0,96,56,104.11,104.11,0,0,0,200,160a106,106,0,0,0,14.92-1.06A89,89,0,0,1,188.9,190.34Z"/></svg></button>
@@ -121,9 +121,9 @@
       <aside class="dnote">
         <span class="dnote-tag">Designer's cut · the opener</span>
         <dl>
-          <dt>Decision</dt><dd>Open with the <strong>trend</strong>, not the product. Three rungs of one move so the skip button visibly degrades: decline → can't skip → weren't there.</dd>
-          <dt>Why</dt><dd>The horizontal POV has to land before the dev-tools example, or the example looks niche.</dd>
-          <dt>Trade-off</dt><dd>Low-fi on purpose — legibility over polish. A clean trend line reads in five seconds.</dd>
+          <dt>Decision</dt><dd>Open with the pattern, not the product. Three versions of the same move, so you watch the skip button degrade: you could decline, you couldn't skip, you weren't even there.</dd>
+          <dt>Why</dt><dd>If I open on a coding agent, it reads as a niche dev-tools fix. Show the checkout, the phone call, then the agent, and it's obvious this is happening on every surface. The problem is everywhere; dev tools is just where I can show it cleanly.</dd>
+          <dt>Trade-off</dt><dd>Low-fi on purpose. A real screenshot and a plain transcript read in five seconds. Polished mockups would slow the trend down and add nothing.</dd>
         </dl>
       </aside>
     </main>
@@ -219,9 +219,9 @@
       <aside class="dnote">
         <span class="dnote-tag">Designer's cut · the hero</span>
         <dl>
-          <dt>Decision</dt><dd>This beat <em>is</em> the fix: <strong>declarative UX</strong>. Your standing declaration governs the ranking, and every control shows its consequence on the spot.</dd>
-          <dt>Why</dt><dd>The broken pattern already landed in beat 1, so restaging it here is redundant. <strong>Pay-to-rank</strong> carries the before/after in one view: flip it and the paid option jumps the line; flip it back and best-fit wins.</dd>
-          <dt>Trade-off</dt><dd>Not hidden, not banned: sponsorship is surfaced, demoted by your rule, rerouted to your terms. The tolerable middle.</dd>
+          <dt>Decision</dt><dd>This beat is the fix. One standing rule, written once, and the agent ranks by it. Every control shows its effect on the spot.</dd>
+          <dt>Why</dt><dd>The problem already landed in beat 1, so I don't restage it. Pay-to-rank carries the whole before/after in one view: flip it on and the paid option buys its way to #1, flip it off and the best fit wins.</dd>
+          <dt>Trade-off</dt><dd>The sponsored option isn't hidden and isn't banned. It's ranked where it actually fits, shown with its real deal, and routed to your queue. That's the bet: a market that ranks by fit beats one that blocks ads, because good products still reach you and paid placement just can't jump the line.</dd>
         </dl>
       </aside>
     </div>
@@ -312,9 +312,9 @@
       <aside class="dnote offers-dnote">
         <span class="dnote-tag">Designer's cut · the audit</span>
         <dl>
-          <dt>Decision</dt><dd>Render allegiance as an <strong>audit trail</strong>, not a setting — a log you can check, with who-served + why on every row.</dd>
-          <dt>Why</dt><dd>"Held, not blocked" only earns trust if the held thing is <em>visible and retrievable.</em></dd>
-          <dt>Trade-off</dt><dd>A queue is a place to maintain — worth it: it turns "the agent screened ads" into something auditable in three seconds.</dd>
+          <dt>Decision</dt><dd>The queue is a ledger, not a setting. A log you can read, with who each offer served and why it was held on every row.</dd>
+          <dt>Why</dt><dd>"Held, not blocked" only works if the held thing is visible and easy to get back. And the same queue is your shopping surface: you open it when you're ready to buy, and what's waiting is matched to fit.</dd>
+          <dt>Trade-off</dt><dd>A queue is one more place to maintain. Worth it. It turns "the agent screened your ads" into something you can check in three seconds, and it's where buying actually happens, on your clock instead of mid-task.</dd>
         </dl>
       </aside>
     </main>

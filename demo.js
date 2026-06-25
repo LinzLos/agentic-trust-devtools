@@ -209,10 +209,8 @@
       e.preventDefault();
     }
     else if (e.key === "d" || e.key === "D") {
-      // Designer's cut is hidden during the live run; D enables it (button + annotations) for the session
-      const on = !document.body.classList.contains("designer-enabled");
-      document.body.classList.toggle("designer-enabled", on);
-      document.body.classList.toggle("notes-on", on);
+      // D toggles the designer's cut notes (the visible toggle does the same on tap/click)
+      const on = document.body.classList.toggle("notes-on");
       const nb = $("#notesToggle"); if (nb) nb.setAttribute("aria-pressed", String(on));
       e.preventDefault();
     }

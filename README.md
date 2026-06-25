@@ -41,12 +41,13 @@ python3 -m http.server 4318
 # open http://localhost:4318
 ```
 
-Keyboard during the run:
+Getting around:
 
-- **Left / Right**: move between beats. Inside beat 1 they step the three scenarios first.
-- **R**: reset to the start, for a clean practice run.
-- **D**: reveal the designer's notes (the Decision / Why / Trade-off on each beat).
-- **Theme toggle** (top bar): light or dark. The demo is dark by default, tuned for projection.
+- **Swipe or the arrow keys** move through the sequence. Inside the Pattern, they step the scenario cards first.
+- **Tap a section** in the progress bar (Pattern / Demo / Close) to jump to it.
+- **Designer's cut**: the toggle in the top bar (or **D** on a keyboard) reveals the design notes (Decision, Why, Trade-off) behind the Pattern, the Demo, and the queue.
+- **R** resets to the start.
+- **Theme**: the top-bar toggle switches light and dark, dark by default.
 
 ## Notes
 

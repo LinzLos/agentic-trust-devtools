@@ -510,8 +510,8 @@ body.notes-on .dnote { display: block; }
 .decl-open:hover { text-decoration: underline; }
 
 /* Designer's cut — hidden during the live run; press D to enable (button + annotations), persists for the session */
-#notesToggle { display: none; }
-body.designer-enabled #notesToggle { display: inline-flex; }
+/* Designer's cut — a visible toggle: labeled button on desktop, icon on mobile (tap to reveal the notes) */
+#notesToggle .nt-icon { display: none; }
 
 /* ════════════════ Mobile optimization pass — segmented nav, big-tap header, swipe hint ════════════════ */
 /* base: hidden on desktop, shown on small screens */
@@ -548,6 +548,10 @@ body.designer-enabled #notesToggle { display: inline-flex; }
   .brand-name { font-size: var(--text-md); }
   #themeToggle, #ghLink { min-width: 44px; min-height: 44px; }
   #themeToggle svg, #ghLink svg { width: 24px; height: 24px; }
+  /* Designer's cut collapses to an icon on mobile */
+  #notesToggle { min-width: 44px; min-height: 44px; padding: 0; justify-content: center; }
+  #notesToggle .nt-label { display: none; }
+  #notesToggle .nt-icon { display: block; width: 24px; height: 24px; }
 
   /* one-time swipe hint, only on the first screen, gone after the first swipe */
   .ladder-canvas[data-rung="1"] .swipe-hint { display: inline-flex; align-self: center; align-items: center; gap: var(--space-6); margin-top: var(--space-8); padding: var(--space-6) var(--space-14); border-radius: var(--radius-full); background: var(--surface-muted); border: 1px solid var(--border); font-size: var(--text-sm); color: var(--text-secondary); }
