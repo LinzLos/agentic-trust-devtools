@@ -1,0 +1,43 @@
+# Verifies the vendored Tiny Wire files in lib/ against the pinned upstream
+# release. scripts/check-tinywire-drift.sh expects a tiny-wire checkout as a
+# sibling of the repo root, so both repos are checked out side by side under
+# the workspace.
+#
+# Upstream publishes version tags (e.g. v1.6), so we check out the tag matching
+# lib/.tinywire-version. This validates the vendored files byte-for-byte
+# against the pinned release; a hand-edited lib/ file or a pin that points at a
+# nonexistent tag fails the run. Note that pinned-tag checkout does not flag a
+# newer upstream release by itself — staleness surfaces when the consumer
+# re-syncs via scripts/sync-tinywire.sh.
+name: Tiny Wire drift check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  drift-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out this repo
+        uses: actions/checkout@v4
+        with:
+          path: agentic-trust-devtools
+
+      - name: Read Tiny Wire version pin
+        id: pin
+        run: echo "version=$(tr -d '[:space:]' < agentic-trust-devtools/lib/.tinywire-version)" >> "$GITHUB_OUTPUT"
+
+      - name: Check out Tiny Wire at pinned tag
+        uses: actions/checkout@v4
+        with:
+          repository: LinzLos/tiny-wire
+          ref: v${{ steps.pin.outputs.version }}
+          path: tiny-wire
+
+      - name: Run drift check
+        run: ./agentic-trust-devtools/scripts/check-tinywire-drift.sh
